@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Beef Jezos Space Program</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script> 
+</head>
+<body onload='pageLoaded()'>
+	<nav id='personalInfo'>
+		<!--TODO random generate a person here. With all information needed. AND DISABLE SELECTION -->
+		<span id='infoName'></span> <span id='infoSurname'></span>
+		<br><br>
+		Born on:<br>
+		<span id='infoBirthYear'></span> / <span id='infoBirthMonth'></span> / <span id='infoBirthDay'></span>
+		<br><br>
+		Live in: <br>
+		<span id='infoCountry'></span> - <span id='infoCity'></span> (<span id='infoZipCode'></span>)
+		<br><br>
+		Phone: <br>
+		<span id='infoPhone'></span>
+		<br><br>
+		Email: <br>
+		<span id='infoEmail' style='font-size:0.7em;'></span>
+		<br><br>
+	</nav>
+
+	<header>
+		<!--TODO DEBUG --><h1 onclick='levelUp()'>Beef Jezos Space Program</h1>
+		<span>Only <span id='seatsLeft'>7858</span> seats left!</span>
+	</header>
+
+	<section>
+		<div id='level0'>
+			<div>TODO title screen here</div>
+			<button onclick='levelUp()'>Subscribe</button>
+		</div>
+		<div id='level1'>
+			<label for='name'>Name:</label>
+			<input type='text' id='name' autocomplete='off' placeholder='Name'/>
+			<br>
+			<label for='surname'>Surname:</label>
+			<input type='text' id='surname' autocomplete='off' value='Surname'/>
+			<br>
+			<label>Date of birth:</label>
+			<select id='birthYear' autocomplete='off'>
+				<option value="">Year<option>
+			</select>
+			<input type='number' id='birthDay' autocomplete='off' min='0' max='31' placeholder='Day' />
+			<input type='text' id='birthMonth' autocomplete='off' size="2" placeholder='Month' />
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='cancel()' class='cancelButton'>Cancel</button>
+			<button onclick='submit()' class='submitButton'>Next</button>
+		</div>
+		<div id='level2'>
+			<label>Country:</label>
+			<select id='country' autocomplete='off'>
+			</select>
+			<br>
+			<label>City:</label>
+			<select id='city1'>
+			</select>
+			<select id='city2'>
+			</select>
+			<select id='city3'>
+			</select>
+			<select id='city4'>
+			</select>
+			<select id='city5'>
+			</select>
+			<br>
+			<label>Zip Code:</label>
+			<input type='number' id='zipCode' autocomplete='off' value="50000" readonly />
+			<input type='hidden' id='zipCodeMin' autocomplete='off' value="0" readonly />
+			<input type='hidden' id='zipCodeMax' autocomplete='off' value="99999" readonly />
+			<button class='smallButton' onclick="binaryEdit('zipCode','+')">+</button> 
+			<button class='smallButton' onclick="binaryEdit('zipCode','-')">-</button> 
+			<button class='smallButton' onclick="binaryEdit('zipCode','R')">R</button> 
+			<br>
+
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='cancel()' class='cancelButton'>Cancel</button>
+			<button onclick='submit()' class='submitButton'>Next</button>
+		</div>
+		<div id='level3'>
+			<label>Username:</label>
+			<input type='text' id='chosenUsername' autocomplete='off' value="" />
+			<ul class='suggestion'>
+				<li id='usernameLength'>Minimum length is 10</li>
+				<li id='usernameCharacters'>Cannot have two consecutive characters near on the keyboard</li>
+			</ul>
+			<br>
+			<label>Password:</label>
+			<input type='password' id='chosenPassword' autocomplete='off' value="" />
+			<ul class='suggestion'>
+				<li id='passwordMinLength'>Minimum length is 10</li>
+				<li id='passwordMaxLength'>Maximum length is 15</li>
+				<li id='passwordComplexity'>Must have a lowercase, uppercase, number and special character</li>
+				<li id='passwordUsernameCharacters'>Can't contain characters from the username</li>
+				<li id='passwordForbiddenCharacters'>The following characters are forbidden: 1 - ! ?</li>
+			</ul>
+			<br>
+			<div id='confirmPasswordBox'>
+				<label>Confirm Password:</label>
+				<input type='password' id='passwordConfirm' autocomplete='off' value="" />
+				<br>
+			</div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='submit()' class='cancelButton' id="submitPasswordButton">Next</button>
+			<button onclick='cancel()' class='submitButton'>Cancel</button>
+		</div>
+		<div id='level4'>
+			<label>Phone:</label>
+			<input type='number' id='phone' autocomplete='off' value="" readonly />
+			<button class='smallButton' onclick="insertPhone('←')">←</button>
+			<br>
+			<button id='phoneButton1' class='smallButton' onclick="insertPhone('1')">1</button>
+			<button id='phoneButton2' class='smallButton' onclick="insertPhone('2')">2</button>
+			<button id='phoneButton3' class='smallButton' onclick="insertPhone('3')">3</button>
+			<button id='phoneButton4' class='smallButton' onclick="insertPhone('4')">4</button>
+			<button id='phoneButton5' class='smallButton' onclick="insertPhone('5')">5</button>
+			<button id='phoneButton6' class='smallButton' onclick="insertPhone('6')">6</button>
+			<button id='phoneButton7' class='smallButton' onclick="insertPhone('7')">7</button>
+			<button id='phoneButton8' class='smallButton' onclick="insertPhone('8')">8</button>
+			<button id='phoneButton9' class='smallButton' onclick="insertPhone('9')">9</button>
+			<button id='phoneButton0' class='smallButton' onclick="insertPhone('0')">0</button>
+			<br>
+			<br>
+			<br>
+			<label>Email:</label>
+			<input type='text' id='mailName' autocomplete='off' />
+			<span style="color: black;">@</span>
+			<input type='text' id='mailDomain' autocomplete='off' />
+			<span style="color: black;">.</span>
+			<input type='text' id='mailCountry' autocomplete='off' />
+			<br>
+			<br>
+			<label>Agreements:</label>
+			<input type='checkbox' id='agreement1' autocomplete='off'/> Agree to all <a href='#'>terms and condition</a>, and all points below <br>
+			<input type='checkbox' id='agreement2' autocomplete='off'/> Agree to let my information be used for space reason <br>
+			<input type='checkbox' id='agreement3' autocomplete='off'/> Agree to be unable to pass to the next form <br>
+			<input type='checkbox' id='agreement4' autocomplete='off'/> Agree to this only if minutes are odd <br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='cancel()' class='cancelButton'>Cancel</button>
+			<button onclick='submit()' class='submitButton'>Next</button>
+		</div>
+		<div id='level5'>
+			<canvas id='loadingScreen' height='400' width='400'>
+			</canvas>
+		</div>
+		<div id='level6'>
+			<label>Age:</label>
+			<input type='number' id='age' autocomplete='off' value="0" readonly />
+			<button class='smallButton' onclick="if(this.innerHTML=='Stop')
+			{
+				this.innerHTML='Start';
+				clearInterval(animations['age']);
+			}
+			else
+			{
+				this.innerHTML='Stop'
+				animations['age']=setInterval(progressAge,100);
+			}">Stop</button>
+			<br>
+			<label>Zodiac Sign:</label>
+			<input type='text' id='zodiacSign' autocomplete='off' value="" readonly />
+			<button class='smallButton' onclick="progressLetters(true)">_</button>
+			<button class='smallButton' onclick="document.getElementById('zodiacSign').value=document.getElementById('zodiacSign').value.substring(0,document.getElementById('zodiacSign').value.length-1);">←</button>
+			<br>
+			<span id='alphabet' style='font-family: monospace;'>_</span>
+			<br>
+			<label>Chemical Elements Agreement:</label>
+			<span style='font-style: italic;'>I agree to be in contact with the following chemical elements. Touch the red border to disagree to all.</span>
+			<br>
+			<br>
+			<div id='periodicTable'>
+			</div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='cancel()' class='cancelButton'>Cancel</button>
+			<button onclick='submit()' class='submitButton'>Next</button>
+		</div>
+		<!-- UI -->
+		<div id='progressBox'>
+			<span id='currentLevel'></span><br>
+			<span id='currentMinutes'></span>:<span id='currentSeconds'></span>
+		</div>
+	</section>
+
+	<footer>
+	Made by Infernet89 for JS13K Competition with theme SPACE
+	</footer>
+</body>
+</html>
+
+
