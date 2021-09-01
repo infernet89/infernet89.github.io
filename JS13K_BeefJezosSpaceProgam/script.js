@@ -1,4 +1,4 @@
-var maxLevel=6;//TODO DEBUG
+var maxLevel=12;//TODO DEBUG
 var secondsPassed=0;
 var level=0;
 var seatsLeft=9999;
@@ -32,13 +32,15 @@ var emailName=(name.toLowerCase())+"."+(surname.toLowerCase());
 var emailDomain=(city.toLowerCase().substring(0,5));
 var emailCountry=(country.toLowerCase().substring(0,2));
 var email=emailName+"@"+emailDomain+"."+emailCountry;
+var username="asd";
+var password="asd";
 
 function pageLoaded()
 {
 	for(i=level+1;i<=maxLevel;i++)
 		document.getElementById("level"+i).style="display: none";
 	document.getElementById("personalInfo").addEventListener("contextmenu", function(evt){ evt.preventDefault(); }, false);
-	document.getElementById("personalInfo").addEventListener("copy", function(evt){ evt.clipboardData.setData("text/plain", "SPAAAAAACE!");evt.preventDefault();}, false);
+	document.addEventListener("copy", function(evt){ evt.clipboardData.setData("text/plain", "SPAAAAAACE!");evt.preventDefault();}, false);
 	setInterval(animate,1000);
 	//fill info
 	document.getElementById("infoName").innerHTML=name;
@@ -52,17 +54,15 @@ function pageLoaded()
 	document.getElementById("infoPhone").innerHTML=phone;
 	document.getElementById("infoEmail").innerHTML=email;
 	//TODO DEBUG
-
-	/*TODO idee
-		- griglia di checkbox da accettare, ma un clic prende anche quelle vicine
-		- il pulsante next è coperto da un AD, andare offline per rimuoverlo
-		- Maze da fare con il mouse per evitare di cancellare il form
-	*/
+	for(l=0;l<0;l++)
+		levelUp();
 }
 function levelUp()
 {
 	document.getElementById("level"+level++).style="display: none";
 	document.getElementById("level"+level).style="display: block";
+	//mostra i bottoni
+	document.getElementById('progressButtons').style.display='block';
 	if(level==1)
 	{
 		//anno
@@ -79,6 +79,16 @@ function levelUp()
 		document.getElementById('birthMonth').addEventListener('keydown', function(e){ if(e.keyCode<58 && e.keyCode>47){e.preventDefault(); return false;}});
 	}
 	else if(level==2)
+	{
+		animations['loading']=setInterval(loading,30);
+		loadingProgress=0;
+		var canvas=document.getElementById("loadingScreen1");
+		canvas.addEventListener("mousemove",mossoMouse);
+		canvas.addEventListener("mousedown",cliccatoMouse);
+		canvas.addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('progressButtons').style.display='none';
+	}
+	else if(level==3)
 	{
 		//country
 		for(i=0;i<countries.length;i++)
@@ -104,16 +114,38 @@ function levelUp()
 		    document.getElementById("city1").appendChild(opt);
 		}
 	}
-	else if(level==3)
+	else if(level==4)
+	{
+		animations['loading']=setInterval(loading,30);
+		loadingProgress=0;
+		var canvas=document.getElementById("loadingScreen2");
+		canvas.addEventListener("mousemove",mossoMouse);
+		canvas.addEventListener("mousedown",cliccatoMouse);
+		canvas.addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('progressButtons').style.display='none';
+	}
+	else if(level==5)
 	{
 		document.getElementById("confirmPasswordBox").style.display= "none";
 		document.getElementById("submitPasswordButton").addEventListener("mouseover", function(evt){ document.getElementById("confirmPasswordBox").style.display="block"; });
-		document.getElementById("level3").addEventListener('paste', (event) => {event.preventDefault();	});
+		document.getElementById("level5").addEventListener('paste', (event) => {event.preventDefault();	});
 		document.getElementById('chosenUsername').addEventListener('keyup',liveLoginCheck);
 		document.getElementById('chosenUsername').addEventListener('keydown', function(e){ if(e.keyCode!=8 && e.keyCode!=46 && (e.keyCode<65 || e.keyCode>90)){e.preventDefault(); return false;}});
 		document.getElementById('chosenPassword').addEventListener('keyup',liveLoginCheck);
+		//nascondi i bottoni (per mostrare quelli finti)
+		document.getElementById('progressButtons').style.display='none';
 	}
-	else if(level==4)
+	else if(level==6)
+	{
+		animations['loading']=setInterval(loading,30);
+		loadingProgress=0;
+		var canvas=document.getElementById("loadingScreen3");
+		canvas.addEventListener("mousemove",mossoMouse);
+		canvas.addEventListener("mousedown",cliccatoMouse);
+		canvas.addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('progressButtons').style.display='none';
+	}
+	else if(level==7)
 	{
 		//phoneDigits
 		for(i=0;i<10;i++)
@@ -134,29 +166,53 @@ function levelUp()
 		document.getElementById('mailDomain').addEventListener('keydown', function(e){ this.style="background-color: 'white';"; this.style.color='white';} );
 		document.getElementById('mailCountry').addEventListener('keydown', function(e){ this.style="background-color: 'white';"; this.style.color='white';} );
 	}
-	else if(level==5)
+	else if(level==8)
 	{
 		animations['loading']=setInterval(loading,30);
-		var canvas=document.getElementById("loadingScreen");
+		loadingProgress=0;
+		var canvas=document.getElementById("loadingScreen4");
 		canvas.addEventListener("mousemove",mossoMouse);
 		canvas.addEventListener("mousedown",cliccatoMouse);
 		canvas.addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('progressButtons').style.display='none';
 	}
-	else if(level==6)
+	else if(level==9)
 	{
 		animations['age']=setInterval(progressAge,80);
 		animations['alphabet']=setInterval(progressLetters,200);
 		//fill periodic table
-		var elements=["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu","Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn","Fr","Ra","Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Nh","Fl","Mc","Lv","Ts","Og"];
+		var elements=["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe","Cs","Ba","La","Ce","Pr","Nd"];
 		for(i=0;i<elements.length;i++)
 		{
-			document.getElementById('periodicTable').innerHTML+="<input onmouseover='this.checked=!this.checked' type='checkbox' id='element"+i+"' />"+elements[i]+"";
-			if((i+1)%15==0)
+			document.getElementById('periodicTable').innerHTML+="<input onmouseover='this.checked=!this.checked' type='checkbox' id='element"+i+"' /><span id='label_element"+i+"'>"+elements[i]+"</span>";
+			if((i+1)%12==0)
 				document.getElementById('periodicTable').innerHTML+="<br>";
 		}
-		document.getElementById('level6').addEventListener("mousemove",mossoMouse);
-		document.getElementById("level6").addEventListener("contextmenu", sparitoMouse);
-		document.addEventListener("blur",sparitoMouse);
+		document.getElementById('level9').addEventListener('keydown', function(e){ if(e.keyCode==9){e.preventDefault(); return false;}});
+		document.getElementById('level9').addEventListener("mousemove",mossoMouse);
+		document.getElementById("level9").addEventListener("contextmenu", sparitoMouse);
+		window.addEventListener("blur",sparitoMouse);
+		document.getElementById('progressButtons').style.display='none';
+	}
+	else if(level==10)
+	{
+		//loading con AD
+		animations['loading']=setInterval(loading,30);
+		loadingProgress=0;
+		var canvas=document.getElementById("loadingScreen5");
+		canvas.addEventListener("mousemove",mossoMouse);
+		canvas.addEventListener("mousedown",cliccatoMouse);
+		canvas.addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('progressButtons').style.display='none';
+	}
+	else if(level==11)
+	{
+		document.getElementById('progressButtons').style.display='none';
+	}
+	else if(level==12)
+	{
+		//TODO ending
+		document.getElementById('progressButtons').style.display='none';
 	}
 }
 function progressAge()
@@ -181,59 +237,81 @@ function progressLetters(insert)
 }
 function loading()
 {
+	if(level%2)
+	{
+		clearInterval(animations['loading']);
+		return;
+	}
+	canvas = document.getElementById("loadingScreen"+(level/2));
 	loadingProgress+=0.0005;
 	if(loadingProgress>100)
 	{
 		loadingProgress=100;
 		clearInterval(animations['loading']);
-		levelUp();
+		document.getElementById('progressButtons').style.display='block';
 	}
-	canvas = document.getElementById("loadingScreen");
 	ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, 400, 400);
-    ctx.fillStyle="#FFF";
-    ctx.textAlign = "center";
-    ctx.fillText("Loading: "+(Math.round(loadingProgress*100)/100),200,200);
-    ctx.strokeStyle="#FFF";
-    ctx.lineWidth = 5;
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-	ctx.arc(200,200,50,(loadingProgress*2)*Math.PI,(loadingProgress*2+1.7)*Math.PI);
-	ctx.stroke();
-	var dragFactor=0.01;
-	if(dragging)
+	if(level==2 || level==6 || level==8 || level==10)//TODO DEBUG
 	{
-		dragFactor*=distanceFrom(mousex,mousey,oldMousex,oldMousey);
-		if(mousex<200 && mousey<200)
+		loadingProgress+=0.9995;
+		ctx.fillStyle="#FFF";
+	    ctx.textAlign = "center";
+	    ctx.font = "40px San Serif";
+	    ctx.fillText("LOADING...",200,200);
+	    ctx.fillText((Math.floor(loadingProgress))+"%",200,250);
+	    ctx.fillRect(10,320,380,40);
+	    ctx.fillStyle="#000";
+	    ctx.fillRect(12+376*(loadingProgress/101),322,376*(1-loadingProgress/101),36);
+	}
+	//cerchio da girare clockwise
+	else if(level==4)
+	{
+		ctx.fillStyle="#FFF";
+	    ctx.textAlign = "center";
+	    ctx.font = "30px San Serif";
+	    ctx.fillText("Loading: "+(Math.round(loadingProgress*100)/100)+"%",200,200);
+	    ctx.strokeStyle="#FFF";
+	    ctx.lineWidth = 35;
+	    ctx.lineCap = 'round';
+	    ctx.beginPath();
+		ctx.arc(200,200,150,(loadingProgress*0.4)*Math.PI,(loadingProgress*0.4+1.7)*Math.PI);
+		ctx.stroke();
+		var dragFactor=0.01;
+		if(dragging)
 		{
-			if(oldMousex<mousex && oldMousey>mousey)
-				loadingProgress+=dragFactor;
-			else if(oldMousex>mousex && oldMousey<mousey)
-				loadingProgress-=dragFactor;
+			dragFactor*=distanceFrom(mousex,mousey,oldMousex,oldMousey);
+			if(mousex<200 && mousey<200)
+			{
+				if(oldMousex<mousex && oldMousey>mousey)
+					loadingProgress+=dragFactor;
+				else if(oldMousex>mousex && oldMousey<mousey)
+					loadingProgress-=dragFactor;
+			}
+			else if(mousex>200 && mousey<200)
+			{
+				if(oldMousex<mousex && oldMousey<mousey)
+					loadingProgress+=dragFactor;
+				else if(oldMousex>mousex && oldMousey>mousey)
+					loadingProgress-=dragFactor;
+			}
+			else if(mousex>200 && mousey>200)
+			{
+				if(oldMousex>mousex && oldMousey<mousey)
+					loadingProgress+=dragFactor;
+				else if(oldMousex<mousex && oldMousey>mousey)
+					loadingProgress-=dragFactor;
+			}
+			else if(mousex<200 && mousey>200)
+			{
+				if(oldMousex>mousex && oldMousey>mousey)
+					loadingProgress+=dragFactor;
+				else if(oldMousex<mousex && oldMousey<mousey)
+					loadingProgress-=dragFactor;
+			}
+			oldMousex=mousex;
+			oldMousey=mousey;
 		}
-		else if(mousex>200 && mousey<200)
-		{
-			if(oldMousex<mousex && oldMousey<mousey)
-				loadingProgress+=dragFactor;
-			else if(oldMousex>mousex && oldMousey>mousey)
-				loadingProgress-=dragFactor;
-		}
-		else if(mousex>200 && mousey>200)
-		{
-			if(oldMousex>mousex && oldMousey<mousey)
-				loadingProgress+=dragFactor;
-			else if(oldMousex<mousex && oldMousey>mousey)
-				loadingProgress-=dragFactor;
-		}
-		else if(mousex<200 && mousey>200)
-		{
-			if(oldMousex>mousex && oldMousey>mousey)
-				loadingProgress+=dragFactor;
-			else if(oldMousex<mousex && oldMousey<mousey)
-				loadingProgress-=dragFactor;
-		}
-		oldMousex=mousex;
-		oldMousey=mousey;
 	}
 }
 function cliccatoMouse(evt)
@@ -248,14 +326,14 @@ function mossoMouse(evt)
     var rect = this.getBoundingClientRect();
     mousex=(evt.clientX-rect.left)/(rect.right-rect.left)*rect.width;
     mousey=(evt.clientY-rect.top)/(rect.bottom-rect.top)*rect.height;
-    if(level==5)
+    if(level==4)
     {
-    	if(distanceFrom(mousex,mousey,200,200)<60)
-    		document.getElementById('loadingScreen').style.cursor = "pointer";
+    	if(distanceFrom(mousex,mousey,200,200)<160)
+    		document.getElementById('loadingScreen2').style.cursor = "pointer";
 	    else 
-	    	document.getElementById('loadingScreen').style.cursor = "default";
+	    	document.getElementById('loadingScreen2').style.cursor = "default";
     }
-    else if(level==6)
+    else if(level==9)
     {
     	mousex+=rect.left;
     	mousey+=rect.top;
@@ -265,12 +343,14 @@ function mossoMouse(evt)
     	for(i=0;i<10;i++)
 	    	if(onPeriodicTableBorder(mousex-diffx*i/10,mousey-diffy*i/10))
 	    	{
-	    		for(j=0;j<118;j++)
+	    		for(j=0;j<60;j++)
 	    			document.getElementById('element'+j).checked=false;
 	    		i=10;
 	    	}    		
 		oldMousex=mousex;
     	oldMousey=mousey;
+    	clearInterval(animations['idling']);
+    	animations['idling']=setTimeout(function() {oldMousex=oldMousey=mousex=mousey=-1;},800);
     }
 }
 function sparitoMouse(evt)
@@ -303,9 +383,6 @@ function distanceFrom(ax,ay,bx,by)
 function animate()
 {
 	secondsPassed++;
-	document.getElementById("currentLevel").innerHTML=level+"/"+maxLevel;
-	document.getElementById("currentMinutes").innerHTML=Math.floor(secondsPassed/60);
-	document.getElementById("currentSeconds").innerHTML=((secondsPassed%60<10)?"0":"")+secondsPassed%60;
 	document.getElementById("seatsLeft").innerHTML=Math.floor(seatsLeft-=(10*Math.random()));
 }
 //a seconda del livello, pulisci il form //TODO
@@ -324,7 +401,7 @@ function cancel()
 		document.getElementById('birthMonth').value="";
 		document.getElementById('birthMonth').style="background-color: white";
 	}
-	else if(level==2)
+	else if(level==3)
 	{
 		document.getElementById("country").selectedIndex="";
 		document.getElementById("country").style="background-color: white";
@@ -336,7 +413,7 @@ function cancel()
 		binaryEdit('zipCode','R');
 		document.getElementById("zipCode").style="background-color: white";
 	}
-	else if(level==3)
+	else if(level==5)
 	{
 		document.getElementById('chosenUsername').value="";
 		document.getElementById('chosenUsername').style="background-color: white";
@@ -352,7 +429,7 @@ function cancel()
 		document.getElementById('passwordUsernameCharacters').style="color: white";
 		document.getElementById('passwordForbiddenCharacters').style="color: white";
 	}
-	else if(level==4)
+	else if(level==7)
 	{
 		document.getElementById('phone').value="";
 		document.getElementById('phone').style="background-color: white";
@@ -369,14 +446,24 @@ function cancel()
 		document.getElementById('agreement3').checked = false;
 		document.getElementById('agreement4').checked = false;
 	}
-	else if(level==6)
+	else if(level==9)
 	{
 		document.getElementById('age').value="0";
 		document.getElementById('age').style="background-color: white";
 		document.getElementById('zodiacSign').value="";
 		document.getElementById('zodiacSign').style="background-color: white";
-		for(i=0;i<118;i++)
-			document.getElementById("element"+i).checked=false;			
+		for(i=0;i<60;i++)
+		{
+			document.getElementById("element"+i).checked=false;
+			document.getElementById("label_element"+i).style="color: white;";
+		}
+	}
+	else if(level==11)
+	{
+		document.getElementById('username').value="";
+		document.getElementById('username').style="background-color: white";
+		document.getElementById('password').value="";
+		document.getElementById('password').style="background-color: white";
 	}
 }
 //a seconda del livello, controlla che i dati inseriti siano corretti //TODO
@@ -391,7 +478,7 @@ function submit()
 		nErrors+=checkElement('birthMonth',birthMonthString);
 		nErrors+=checkElement('birthYear',birthYear);
 	}
-	else if(level==2)
+	else if(level==3)
 	{
 		nErrors+=checkElement('country',country);
 		for(j=1;j<=5;j++)
@@ -400,12 +487,12 @@ function submit()
 		}
 		nErrors+=checkElement('zipCode',zipCode);
 	}
-	else if(level==3)
+	else if(level==5)
 	{
 		nErrors+=liveLoginCheck();
 		nErrors+=checkElement('passwordConfirm',document.getElementById("chosenPassword").value);
 	}
-	else if(level==4)
+	else if(level==7)
 	{
 		nErrors+=checkElement('phone',phone);
 		nErrors+=checkElement('mailName',emailName);
@@ -418,17 +505,36 @@ function submit()
 		if(document.getElementById('agreement3').checked)
 			nErrors++;
 		var evenMinutes=(new Date().getMinutes()%2==0);
-		if(document.getElementById('agreement4').checked === evenMinutes)
+		if(document.getElementById('agreement4').checked && evenMinutes)
+		{
 			nErrors++;
+		}
+		else if(!document.getElementById('agreement4').checked && !evenMinutes)
+		{
+			nErrors++;
+		}
 	}
-	else if(level==6)
+	else if(level==9)
 	{
 		nErrors+=checkElement('age',age);
 		nErrors+=checkElement('zodiacSign',zodiacSign);
-		for(i=0;i<118;i++)
+		for(i=0;i<60;i++)
 			if(!document.getElementById("element"+i).checked)
+			{
+				document.getElementById("label_element"+i).style="color: red;";
 				nErrors++;
-				
+			}
+			else document.getElementById("label_element"+i).style="color: white;";
+	}
+	else if(level==11)
+	{
+		nErrors+=checkElement('username',username);
+		nErrors+=checkElement('password',password);
+	}
+	//loading screens
+	else if(level%2==0)
+	{
+		nErrors=0;
 	}
 	if(!nErrors)
 		levelUp();
@@ -499,8 +605,8 @@ function liveLoginCheck()
 	near["n"]="nbghjm";
 	near["m"]="mnhjk";
 
-	var username=document.getElementById("chosenUsername").value.toLowerCase();
-	var password=document.getElementById("chosenPassword").value;
+	username=document.getElementById("chosenUsername").value.toLowerCase();
+	password=document.getElementById("chosenPassword").value;
 	if(username.length<10)
 	{
 		document.getElementById('usernameLength').style.color="red";

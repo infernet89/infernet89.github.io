@@ -13,6 +13,7 @@ nav {
   width:10%;
   float:left;   
   overflow-y: scroll;
+  overflow-y: auto;
   user-select: none;
   background-color: white;
   color: black;
@@ -33,18 +34,9 @@ footer {
  bottom:5px;
  width:99%;
  height:10px;
- color: #FFF;
- font-size: 10px;
- text-align: center;
-}
-#progressBox {
-  position: absolute;
-  right: 0px;
-  top: 10%;
-  border: solid 1px #444;
-  padding: 0.3em;
-  font-size: 1.1em;
-  text-align: center;
+ color: #CAC;
+ font-size: 7px;
+ text-align: left;
 }
 label {
   display: block;

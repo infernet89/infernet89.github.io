@@ -21,7 +21,7 @@
 		<span id='infoPhone'></span>
 		<br><br>
 		Email: <br>
-		<span id='infoEmail' style='font-size:0.7em;'></span>
+		<span id='infoEmail' style='font-size:0.8em;'></span>
 		<br><br>
 	</nav>
 
@@ -48,14 +48,12 @@
 			</select>
 			<input type='number' id='birthDay' autocomplete='off' min='0' max='31' placeholder='Day' />
 			<input type='text' id='birthMonth' autocomplete='off' size="2" placeholder='Month' />
-			<br>
-			<br>
-			<br>
-			<br>
-			<button onclick='cancel()' class='cancelButton'>Cancel</button>
-			<button onclick='submit()' class='submitButton'>Next</button>
 		</div>
 		<div id='level2'>
+			<canvas id='loadingScreen1' height='400' width='400'>
+			</canvas>
+		</div>
+		<div id='level3'>
 			<label>Country:</label>
 			<select id='country' autocomplete='off'>
 			</select>
@@ -80,15 +78,12 @@
 			<button class='smallButton' onclick="binaryEdit('zipCode','-')">-</button> 
 			<button class='smallButton' onclick="binaryEdit('zipCode','R')">R</button> 
 			<br>
-
-			<br>
-			<br>
-			<br>
-			<br>
-			<button onclick='cancel()' class='cancelButton'>Cancel</button>
-			<button onclick='submit()' class='submitButton'>Next</button>
 		</div>
-		<div id='level3'>
+		<div id='level4'>
+			<canvas id='loadingScreen2' height='400' width='400'>
+			</canvas>
+		</div>
+		<div id='level5'>
 			<label>Username:</label>
 			<input type='text' id='chosenUsername' autocomplete='off' value="" />
 			<ul class='suggestion'>
@@ -115,10 +110,14 @@
 			<br>
 			<br>
 			<br>
-			<button onclick='submit()' class='cancelButton' id="submitPasswordButton">Next</button>
-			<button onclick='cancel()' class='submitButton'>Cancel</button>
+			<button onclick='submit()' class='cancelButton' id="submitPasswordButton">&nbsp;Next&nbsp;</button>
+			<button onclick='cancel()' class='submitButton' style=''>Canc</button>
 		</div>
-		<div id='level4'>
+		<div id='level6'>
+			<canvas id='loadingScreen3' height='400' width='400'>
+			</canvas>
+		</div>
+		<div id='level7'>
 			<label>Phone:</label>
 			<input type='number' id='phone' autocomplete='off' value="" readonly />
 			<button class='smallButton' onclick="insertPhone('←')">←</button>
@@ -149,18 +148,12 @@
 			<input type='checkbox' id='agreement2' autocomplete='off'/> Agree to let my information be used for space reason <br>
 			<input type='checkbox' id='agreement3' autocomplete='off'/> Agree to be unable to pass to the next form <br>
 			<input type='checkbox' id='agreement4' autocomplete='off'/> Agree to this only if minutes are odd <br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<button onclick='cancel()' class='cancelButton'>Cancel</button>
-			<button onclick='submit()' class='submitButton'>Next</button>
 		</div>
-		<div id='level5'>
-			<canvas id='loadingScreen' height='400' width='400'>
+		<div id='level8'>
+			<canvas id='loadingScreen4' height='400' width='400'>
 			</canvas>
 		</div>
-		<div id='level6'>
+		<div id='level9'>
 			<label>Age:</label>
 			<input type='number' id='age' autocomplete='off' value="0" readonly />
 			<button class='smallButton' onclick="if(this.innerHTML=='Stop')
@@ -195,11 +188,35 @@
 			<button onclick='cancel()' class='cancelButton'>Cancel</button>
 			<button onclick='submit()' class='submitButton'>Next</button>
 		</div>
-		<!-- UI -->
-		<div id='progressBox'>
-			<span id='currentLevel'></span><br>
-			<span id='currentMinutes'></span>:<span id='currentSeconds'></span>
+		<div id='level10'>
+			<canvas id='loadingScreen5' height='400' width='400'><!--TODO loading bloccato da AD (passare offline -->
+			</canvas>
 		</div>
+		<div id='level11'>
+			<label>Username:</label>
+			<input type='text' id='username' autocomplete='off' value="" />
+			<br>
+			<label>Password:</label>
+			<input type='password' id='password' autocomplete='off' value="" />
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='submit()' class='submitButton'>Login</button>
+		</div>
+		<div id='level12'>
+			TODO ending (flash? lol.)
+		</div>
+		<!-- bottoni per continuare -->
+		<div id='progressButtons' style='display:none;'>
+			<br>
+			<br>
+			<br>
+			<br>
+			<button onclick='cancel()' class='cancelButton'>Cancel</button>
+			<button onclick='submit()' class='submitButton'>Next</button>
+		</div>
+
 	</section>
 
 	<footer>
