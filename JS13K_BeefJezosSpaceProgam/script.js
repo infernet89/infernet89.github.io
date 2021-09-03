@@ -34,6 +34,8 @@ var emailCountry=(country.toLowerCase().substring(0,2));
 var email=emailName+"@"+emailDomain+"."+emailCountry;
 var username="asd";
 var password="asd";
+var targetLoadingEnd=new Date();
+targetLoadingEnd.setHours(targetLoadingEnd.getHours()+12);
 
 function pageLoaded()
 {
@@ -84,7 +86,6 @@ function levelUp()
 		loadingProgress=0;
 		var canvas=document.getElementById("loadingScreen1");
 		canvas.addEventListener("mousemove",mossoMouse);
-		canvas.addEventListener("mousedown",cliccatoMouse);
 		canvas.addEventListener("mouseup",rilasciatoMouse);
 		document.getElementById('progressButtons').style.display='none';
 	}
@@ -141,7 +142,6 @@ function levelUp()
 		loadingProgress=0;
 		var canvas=document.getElementById("loadingScreen3");
 		canvas.addEventListener("mousemove",mossoMouse);
-		canvas.addEventListener("mousedown",cliccatoMouse);
 		canvas.addEventListener("mouseup",rilasciatoMouse);
 		document.getElementById('progressButtons').style.display='none';
 	}
@@ -172,7 +172,6 @@ function levelUp()
 		loadingProgress=0;
 		var canvas=document.getElementById("loadingScreen4");
 		canvas.addEventListener("mousemove",mossoMouse);
-		canvas.addEventListener("mousedown",cliccatoMouse);
 		canvas.addEventListener("mouseup",rilasciatoMouse);
 		document.getElementById('progressButtons').style.display='none';
 	}
@@ -201,7 +200,6 @@ function levelUp()
 		loadingProgress=0;
 		var canvas=document.getElementById("loadingScreen5");
 		canvas.addEventListener("mousemove",mossoMouse);
-		canvas.addEventListener("mousedown",cliccatoMouse);
 		canvas.addEventListener("mouseup",rilasciatoMouse);
 		document.getElementById('progressButtons').style.display='none';
 	}
@@ -252,7 +250,7 @@ function loading()
 	}
 	ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, 400, 400);
-	if(level==2 || level==6 || level==8 || level==10)//TODO DEBUG
+	if(level==2 || level==6)//TODO DEBUG
 	{
 		loadingProgress+=0.9995;
 		ctx.fillStyle="#FFF";
@@ -261,6 +259,44 @@ function loading()
 	    ctx.fillText("LOADING...",200,200);
 	    ctx.fillText((Math.floor(loadingProgress))+"%",200,250);
 	    ctx.fillRect(10,320,380,40);
+	    ctx.fillStyle="#000";
+	    ctx.fillRect(12+376*(loadingProgress/101),322,376*(1-loadingProgress/101),36);
+	}
+	//go offline
+	else if(level==10)
+	{
+		if((loadingProgress+=2.9995) > 100)
+		{
+			loadingProgress=100;
+			if(navigator.onLine)
+				document.getElementById('modalAD').style.display='block';
+		}			
+		ctx.fillStyle="#FFF";
+	    ctx.textAlign = "center";
+	    ctx.font = "30px San Serif";
+	    ctx.fillText("LOADING THE NEXT AD...",200,200);
+	    ctx.fillText((Math.floor(loadingProgress))+"%",200,250);
+	    ctx.fillRect(10,320,380,40);
+	    ctx.fillStyle="#000";
+	    ctx.fillRect(12+376*(loadingProgress/101),322,376*(1-loadingProgress/100),36);
+	}
+	//cambia la data
+	else if(level==8)
+	{
+		var diff=(targetLoadingEnd - new Date()) / 1000;
+		var h=Math.floor(diff/(60*60));
+		var m=Math.floor(diff/(60))-h*60;
+		var s=Math.floor(diff-m*60-h*60*60);
+		loadingProgress=100-100*diff/(12*60*60);
+		ctx.fillStyle="#FFF";
+	    ctx.textAlign = "center";
+	    ctx.font = "40px San Serif";
+	    ctx.fillText("LOADING...",200,200);
+	    ctx.fillText((Math.round(loadingProgress*100)/100)+"%",200,250);
+	    ctx.fillRect(10,320,380,40);
+	    ctx.font = "20px San Serif";
+	    ctx.textAlign = "left";
+	    ctx.fillText("Elapsed: "+h+"h, "+m+"m and "+s+"s",20,390);
 	    ctx.fillStyle="#000";
 	    ctx.fillRect(12+376*(loadingProgress/101),322,376*(1-loadingProgress/101),36);
 	}
@@ -314,10 +350,17 @@ function loading()
 		}
 	}
 }
+function closeAd()
+{
+	document.getElementById('modalAD').style.display='none';
+	loadingProgress=0;
+	animations['loading']=setInterval(loading,30);
+	document.getElementById('progressButtons').style.display='none';
+}
 function cliccatoMouse(evt)
 {
     dragging=true;
-    var rect = document.getElementById("loadingScreen").getBoundingClientRect();
+    var rect = document.getElementById("loadingScreen2").getBoundingClientRect();
     mousex=(evt.clientX-rect.left)/(rect.right-rect.left)*400;
     mousey=(evt.clientY-rect.top)/(rect.bottom-rect.top)*400;
 }
@@ -525,6 +568,14 @@ function submit()
 				nErrors++;
 			}
 			else document.getElementById("label_element"+i).style="color: white;";
+	}
+	else if(level==10)
+	{
+		if(navigator.onLine)
+		{
+			console.log("Nice try!");
+			nErrors++;
+		}			
 	}
 	else if(level==11)
 	{
