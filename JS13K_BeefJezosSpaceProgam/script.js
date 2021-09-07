@@ -56,6 +56,17 @@ function pageLoaded()
 	document.getElementById("infoZipCode").innerHTML=zipCode;
 	document.getElementById("infoPhone").innerHTML=phone;
 	document.getElementById("infoEmail").innerHTML=email;
+	//generate random stars
+	for(s=0;s<1000;s++)
+	{
+		var star = document.createElement('div');
+		star.id="star"+secondsPassed%1000;
+		var size=rand(1,3);
+		var x=rand(0,window.innerWidth);
+		var y=rand(-150,2000);
+	    star.style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: "+x+"px "+y+"px #FFF; animation: animStar "+50*size+"s linear infinite;";
+	    document.getElementById("level0").appendChild(star);
+	}
 	//TODO DEBUG
 	for(l=0;l<0;l++)
 		levelUp();
@@ -861,4 +872,10 @@ function getZodiac(month, day){
 	else
 		return "capricorn";
 	
+}
+function rand(da, a)
+{
+    if(da>a) return rand(a,da);
+    a=a+1;
+    return Math.floor(Math.random()*(a-da)+da);
 }

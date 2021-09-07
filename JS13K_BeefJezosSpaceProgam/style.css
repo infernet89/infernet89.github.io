@@ -6,7 +6,7 @@ html, body {
 }
 header {
   text-align: center;
-  height: 10%;
+  height: 75px;
 }
 nav {
   height:99%;
@@ -115,4 +115,18 @@ button {
 .closeAD:hover,.closeAD:focus {
   color: #000;
   cursor: pointer;
+}
+@keyframes animStar {
+  0% {
+    transform: translateY(0px);
+  }
+  /*50% {
+    transform: translateY(-80px);
+  }
+  51% {
+    transform: translateY(80px);
+  }*/
+  100% {
+    transform: translateY(-2000px);
+  }
 }
