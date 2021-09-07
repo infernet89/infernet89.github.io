@@ -32,10 +32,11 @@ var emailName=(name.toLowerCase())+"."+(surname.toLowerCase());
 var emailDomain=(city.toLowerCase().substring(0,5));
 var emailCountry=(country.toLowerCase().substring(0,2));
 var email=emailName+"@"+emailDomain+"."+emailCountry;
-var username="asd";
-var password="asd";
+var username="";
+var password="";
 var targetLoadingEnd=new Date();
 targetLoadingEnd.setHours(targetLoadingEnd.getHours()+12);
+var lastMovementTs=Date.now()
 
 function pageLoaded()
 {
@@ -91,6 +92,7 @@ function levelUp()
 	}
 	else if(level==3)
 	{
+		clearInterval(animations['loading']);
 		//country
 		for(i=0;i<countries.length;i++)
 		{
@@ -127,6 +129,7 @@ function levelUp()
 	}
 	else if(level==5)
 	{
+		clearInterval(animations['loading']);
 		document.getElementById("confirmPasswordBox").style.display= "none";
 		document.getElementById("submitPasswordButton").addEventListener("mouseover", function(evt){ document.getElementById("confirmPasswordBox").style.display="block"; });
 		document.getElementById("level5").addEventListener('paste', (event) => {event.preventDefault();	});
@@ -140,13 +143,20 @@ function levelUp()
 	{
 		animations['loading']=setInterval(loading,30);
 		loadingProgress=0;
-		var canvas=document.getElementById("loadingScreen3");
-		canvas.addEventListener("mousemove",mossoMouse);
-		canvas.addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('allPage').addEventListener("mousemove",mossoMouse);
+		document.getElementById('allPage').addEventListener("mousedown",cliccatoMouse);
+		document.getElementById('allPage').addEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('allPage').addEventListener("mouseout",sparitoMouse);
 		document.getElementById('progressButtons').style.display='none';
 	}
 	else if(level==7)
 	{
+		//remove old event listener
+		clearInterval(animations['loading']);
+		document.getElementById('allPage').removeEventListener("mousemove",mossoMouse);
+		document.getElementById('allPage').removeEventListener("mousedown",cliccatoMouse);
+		document.getElementById('allPage').removeEventListener("mouseup",rilasciatoMouse);
+		document.getElementById('allPage').removeEventListener("mouseout",sparitoMouse);
 		//phoneDigits
 		for(i=0;i<10;i++)
 		{
@@ -177,6 +187,7 @@ function levelUp()
 	}
 	else if(level==9)
 	{
+		clearInterval(animations['loading']);
 		animations['age']=setInterval(progressAge,80);
 		animations['alphabet']=setInterval(progressLetters,200);
 		//fill periodic table
@@ -195,6 +206,9 @@ function levelUp()
 	}
 	else if(level==10)
 	{
+		//unload old interval
+		clearInterval(animations['age']);
+		clearInterval(animations['alphabet']);
 		//loading con AD
 		animations['loading']=setInterval(loading,30);
 		loadingProgress=0;
@@ -205,6 +219,7 @@ function levelUp()
 	}
 	else if(level==11)
 	{
+		clearInterval(animations['loading']);
 		document.getElementById('progressButtons').style.display='none';
 	}
 	else if(level==12)
@@ -235,11 +250,6 @@ function progressLetters(insert)
 }
 function loading()
 {
-	if(level%2)
-	{
-		clearInterval(animations['loading']);
-		return;
-	}
 	canvas = document.getElementById("loadingScreen"+(level/2));
 	loadingProgress+=0.0005;
 	if(loadingProgress>100)
@@ -250,7 +260,7 @@ function loading()
 	}
 	ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, 400, 400);
-	if(level==2 || level==6)//TODO DEBUG
+	if(level==2)
 	{
 		loadingProgress+=0.9995;
 		ctx.fillStyle="#FFF";
@@ -262,10 +272,86 @@ function loading()
 	    ctx.fillStyle="#000";
 	    ctx.fillRect(12+376*(loadingProgress/101),322,376*(1-loadingProgress/101),36);
 	}
+	//shy loader
+	else if(level==6)
+	{
+		barX=canvas.offsetLeft;
+		barY=300+canvas.offsetTop
+		document.getElementById('loadingScreen3').style.cursor = "default";
+		//check if it is moving, or is too near the bar
+		if(mousey>barY-40 && mousey<390+canvas.offsetTop && mousex>barX-30 && mousex<barX+430)
+		{
+			//check if catched the bar
+			if(mousey>barY && mousey<barY+40 && mousex>barX && mousex<barX+loaderPosition)
+			{
+				document.getElementById('loadingScreen3').style.cursor = "pointer";
+				if(dragging && ++loadingProgress>100)
+				{
+					loadingProgress=1000;
+					clearInterval(animations['loading']);
+					document.getElementById('progressButtons').style.display='block';
+				}
+			}
+			else
+				loadingProgress-=4.5;
+		}
+		else if(Date.now()-lastMovementTs<2000)
+		{
+			loadingProgress-=0.0005;	
+		}
+		else
+		{
+			loadingProgress+=0.0495;
+		}
+		//check if it is moving
+		if(distanceFrom(mousex,mousey,oldMousex,oldMousey)>3)
+		{
+			lastMovementTs=Date.now();
+		}
+		oldMousex=mousex;
+    	oldMousey=mousey;
+		//caps
+		if(loadingProgress>999)
+			loadingProgress=100;
+		else if(loadingProgress>99.99)
+			loadingProgress=99.99;
+		else if(loadingProgress<0)
+			loadingProgress=0;
+		loaderPosition=376*(loadingProgress/100);
+		ctx.fillStyle="#FFF";
+	    ctx.textAlign = "center";
+	    ctx.font = "40px San Serif";
+	    ctx.fillText("LOADING...",200,200);
+	    ctx.fillText((Math.floor(loadingProgress))+"%",200,250);
+	    ctx.fillRect(10,320,380,40);
+	    ctx.fillStyle="#000";
+	    ctx.fillRect(12+loaderPosition,322,376*(1-loadingProgress/101),36);
+	    //eyes
+	    ctx.strokeStyle="#000";
+	    ctx.lineWidth = 1;
+	    ctx.beginPath();
+		ctx.arc(2+loaderPosition,330,5,0,7);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.arc(2+loaderPosition,350,5,0,7);
+		ctx.stroke();
+		//qualche frame fagli chiudere gli occhi
+		if(Date.now()%2000<100)
+			ctx.lineWidth = 7;
+		else
+			ctx.lineWidth = 3;
+	    ctx.beginPath();
+		ctx.arc(2+loaderPosition,330,1,0,7);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.arc(2+loaderPosition,350,1,0,7);
+		ctx.stroke();
+
+	}
 	//go offline
 	else if(level==10)
 	{
-		if((loadingProgress+=2.9995) > 100)
+		if((loadingProgress+=1.9995) > 100)
 		{
 			loadingProgress=100;
 			if(navigator.onLine)
