@@ -120,13 +120,15 @@ button {
   0% {
     transform: translateY(0px);
   }
-  /*50% {
-    transform: translateY(-80px);
-  }
-  51% {
-    transform: translateY(80px);
-  }*/
   100% {
     transform: translateY(-2000px);
+  }
+}
+@keyframes scrollStar {
+  0% {
+    transform: translateX(-2000px);
+  }
+  100% {
+    transform: translateX(2000px);
   }
 }

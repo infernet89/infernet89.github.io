@@ -56,17 +56,25 @@ function pageLoaded()
 	document.getElementById("infoZipCode").innerHTML=zipCode;
 	document.getElementById("infoPhone").innerHTML=phone;
 	document.getElementById("infoEmail").innerHTML=email;
-	//generate random stars
+	/*/generate random stars
 	for(s=0;s<1000;s++)
 	{
 		var star = document.createElement('div');
-		star.id="star"+secondsPassed%1000;
 		var size=rand(1,3);
 		var x=rand(0,window.innerWidth);
 		var y=rand(-150,2000);
 	    star.style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: "+x+"px "+y+"px #FFF; animation: animStar "+50*size+"s linear infinite;";
 	    document.getElementById("level0").appendChild(star);
 	}
+	for(s=0;s<100;s++)
+	{
+		var star = document.createElement('div');
+		var size=rand(1,3);
+		var x=rand(-2000,0);
+		var y=rand(0,2000);
+	    star.style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: "+x+"px "+y+"px #FFF; animation: animStar "+50*size+"s linear infinite;";
+	    document.getElementById("level0").appendChild(star);
+	}*/
 	//TODO DEBUG
 	for(l=0;l<0;l++)
 		levelUp();
