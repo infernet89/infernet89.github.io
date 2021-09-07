@@ -446,7 +446,7 @@ function closeAd()
 function cliccatoMouse(evt)
 {
     dragging=true;
-    var rect = document.getElementById("loadingScreen2").getBoundingClientRect();
+    var rect = this.getBoundingClientRect();
     mousex=(evt.clientX-rect.left)/(rect.right-rect.left)*400;
     mousey=(evt.clientY-rect.top)/(rect.bottom-rect.top)*400;
 }
