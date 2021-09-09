@@ -932,7 +932,7 @@ function checkInternet()
 	    	 	offline=true;
 	    }	   
 	};
-	xhttp.open("GET", "http://infernet89.altervista.org/ping.php", true);
+	xhttp.open("GET", "https://dog.ceo/api/breeds/image/random", true);
 	xhttp.send();
 	return !offline;
 }
