@@ -1,7 +1,7 @@
-var maxLevel=12;//TODO DEBUG
+var maxLevel=12;
 var secondsPassed=0;
 var level=0;
-var seatsLeft=9999;
+var seatsLeft=rand(8000,9999);
 var phoneDigits=[];
 var cooldown=false;
 var loadingProgress=0;
@@ -11,9 +11,9 @@ var animations=[];
 var currentLetter=0;
 //random character generation
 var names=["Michael","Christopher","Jessica","Matthew","Ashley","Jennifer","Joshua","Amanda","Daniel","David","James","Robert","John","Joseph","Andrew","Ryan","Brandon","Jason","Justin","Sarah","William","Jonathan","Stephanie","Brian","Nicole","Nicholas","Anthony","Heather","Eric","Elizabeth","Adam","Megan","Melissa","Kevin","Steven","Thomas","Timothy","Christina","Kyle","Rachel","Laura","Lauren","Amber","Brittany","Danielle","Richard","Kimberly","Jeffrey","Amy","Crystal","Michelle","Tiffany","Jeremy","Benjamin","Mark","Emily","Aaron","Charles","Rebecca","Jacob","Stephen","Patrick","Sean","Erin","Zachary","Jamie","Kelly","Samantha","Nathan","Sara","Dustin","Paul","Angela","Tyler","Scott","Katherine","Andrea","Gregory","Erica","Mary","Travis","Lisa","Kenneth","Bryan","Lindsey","Kristen","Jose","Alexander","Jesse","Katie","Lindsay","Shannon","Vanessa","Courtney","Christine","Alicia","Cody","Allison","Bradley","Samuel","Shawn","April","Derek","Kathryn","Kristin","Chad","Jenna","Tara","Maria","Krystal","Jared","Anna","Edward","Julie","Peter","Holly","Marcus","Kristina","Natalie","Jordan","Victoria","Jacqueline","Corey","Keith","Monica","Juan","Donald","Cassandra","Meghan","Joel","Shane","Phillip","Patricia","Brett","Ronald","Catherine","George","Antonio","Cynthia","Stacy","Kathleen","Raymond","Carlos","Brandi","Douglas","Nathaniel","Ian","Craig","Brandy","Alex","Valerie","Veronica","Cory","Whitney","Gary","Derrick","Philip","Luis","Diana","Chelsea","Leslie","Caitlin","Leah","Natasha","Erika","Casey","Latoya","Erik","Dana","Victor","Brent","Dominique","Frank","Brittney","Evan","Gabriel","Julia","Candice","Karen","Melanie","Adrian","Stacey","Margaret","Sheena","Wesley","Vincent","Alexandra","Katrina","Bethany","Nichole","Larry","Jeffery","Curtis","Carrie","Todd","Blake","Christian","Randy","Dennis","Alison","Trevor","Seth","Kara","Joanna","Rachael","Luke","Felicia","Brooke","Austin","Candace","Jasmine","Jesus","Alan","Susan","Sandra","Tracy","Kayla","Nancy","Tina","Krystle","Russell","Jeremiah","Carl","Miguel","Tony","Alexis","Gina","Jillian","Pamela","Mitchell","Hannah","Renee","Denise","Molly","Jerry","Misty","Mario","Johnathan","Jaclyn","Brenda","Terry","Lacey","Shaun","Devin","Heidi","Troy","Lucas","Desiree","Jorge","Andre","Morgan","Drew","Sabrina","Miranda","Alyssa","Alisha","Teresa","Johnny"];
-var name=names[Math.floor(Math.random()*names.length)];
+var name=names[rand(0,names.length-1)];
 var surnames=["Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin","Thompson","Garcia","Martinez","Robinson","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez","Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans","Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox","Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson","Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander","Russell","Griffin","Diaz","Hayes","Myers","Ford","Hamilton","Graham","Sullivan","Wallace","Woods","Cole","West","Jordan","Owens","Reynolds","Fisher","Ellis","Harrison","Gibson","Mcdonald","Cruz","Marshall","Ortiz","Gomez","Murray","Freeman","Wells","Webb","Simpson","Stevens","Tucker","Porter","Hunter","Hicks","Crawford","Henry","Boyd","Mason","Morales","Kennedy","Warren","Dixon","Ramos","Reyes","Burns","Gordon","Shaw","Holmes","Rice","Robertson","Hunt","Black","Daniels","Palmer","Mills","Nichols","Grant","Knight","Ferguson","Rose","Stone","Hawkins","Dunn","Perkins","Hudson","Spencer","Gardner","Stephens","Payne","Pierce","Berry","Matthews","Arnold","Wagner","Willis","Ray","Watkins","Olson","Carroll","Duncan","Snyder","Hart","Cunningham","Bradley","Lane","Andrews","Ruiz","Harper","Fox","Riley","Armstrong","Carpenter","Weaver","Greene","Lawrence","Elliott","Chavez","Sims","Austin","Peters","Kelley","Franklin","Lawson","Fields","Gutierrez","Ryan","Schmidt","Carr","Vasquez","Castillo","Wheeler","Chapman","Oliver","Montgomery","Richards","Williamson","Johnston","Banks","Meyer","Bishop","Mccoy","Howell","Alvarez","Morrison","Hansen","Fernandez","Garza","Harvey","Little","Burton","Stanley","Nguyen","George","Jacobs","Reid","Kim","Fuller","Lynch","Dean","Gilbert","Garrett","Romero","Welch","Larson","Frazier","Burke","Hanson","Day","Mendoza","Moreno","Bowman","Medina","Fowler","Brewer","Hoffman","Carlson","Silva","Pearson","Holland"];
-var surname=surnames[Math.floor(Math.random()*surnames.length)];
+var surname=surnames[rand(0,surnames.length-1)];
 var birthDate=new Date(new Date(1900, 1, 1).getTime() + Math.random() * (new Date(2003, 1, 1).getTime() - new Date(1900, 1, 1).getTime()));
 var birthYear=birthDate.getFullYear();
 var birthMonth=birthDate.getMonth()+1;
@@ -23,11 +23,11 @@ var birthDay=birthDate.getDate();
 var age=Math.floor(((new Date()).getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.2425));
 var zodiacSign=getZodiac(birthMonth,birthDay);
 var countries=["Senegal","Macedonia","Belarus","Tajikistan","Liberia","Costa Rica","Bulgaria","Ukraine","Luxembourg","Guyana","Lesotho","Nicaragua","Taiwan","Norway","Lithuania","Venezuela","Kyrgyzstan","Argentina","Sierra Leone","Cameroon","Malaysia","Netherlands","Liechtenstein","Saudi Arabia","Vatican City","Kiribati","Algeria","Finland","Andorra","Nigeria","Laos","Gabon","Israel","Eritrea","United Kingdom","Qatar","Samoa","Armenia","Croatia","Cyprus","Vanuatu","Philippines","United States","Turkey","Sweden","Burundi","Brazil","Italy","San Marino","Panama","Thailand","Maldives","Estonia","Slovenia","Russian Federation","Kuwait","Kenya","Bahrain","Chile","Fiji","South Africa","Belgium","India","Singapore","Serbia","Morocco","Georgia","Albania","Malta","Botswana","Czech Republic","Bosnia Herzegovina","Ethiopia","Mauritania","Malawi","Burkina","Nauru","Slovakia","Turkmenistan","France","Solomon Islands","Dominica","Latvia","Cuba","Australia","Mauritius","Spain","Palau","Haiti","Japan","Vietnam","Kosovo","Uruguay","Azerbaijan","East Timor","South Sudan","Poland","Bolivia","Tonga","Somalia","Yemen","Cape Verde","Pakistan","Papua New Guinea","Moldova","Grenada","Ecuador","Iran","Kazakhstan","Greece","St Lucia","Niger","Tanzania","Tuvalu","Belize","Switzerland","Chad","Marshall Islands","Korea South","Djibouti","Montenegro","Uzbekistan","Guinea","Iceland","Uganda","Afghanistan","Central African Rep","Sudan","Korea North","Denmark","Angola","Equatorial Guinea","New Zealand","Seychelles","Indonesia","Monaco","Comoros","Brunei","Swaziland","Syria","Gambia","Rwanda","Peru","Oman","Guatemala","Micronesia","Portugal","Germany","Mozambique","Ghana","Dominican Republic","Austria","Zambia","Zimbabwe","Hungary","Madagascar","El Salvador","Guinea-Bissau","Jordan","Iraq","United Arab Emirates","Honduras","Colombia","Mongolia","Egypt","Congo","Suriname","Sri Lanka","Benin","Nepal","Jamaica","Namibia","China","Cambodia","Bangladesh","Paraguay","Togo","Libya","Barbados","Tunisia","Mexico","Mali","Bhutan","Lebanon","Bahamas","Canada","Romania","Ivory Coast"];
-var country=countries[Math.floor(Math.random()*countries.length)];
+var country=countries[rand(0,countries.length-1)];
 var cities=["Jesse","Volda","Thiva","Wever","Amora","Olgii","Amlin","Bison","Casco","Thane","Onaga","Capay","Imazu","Lucca","Cocoa","Couva","Nybro","Eolia","Bstad","Moxee","Heron","Vevay","Exton","Geham","Caret","Moody","Pasto","Plain","Fermo","Omiya","Virum","Meers","Hurst","Arese","Young","Alsea","Kunia","Vilas","Dagun","Minto","Mella","Wayan","Cyrus","Yreka","Yauco","Brady","Ashby","Louth","Epsom","Ximba","Rouen","Minot","Porto","Cache","Fonda","Pratt","Wavre","Rhine","Minoa","Rolfe","Angie","Sadri","Hague","Bisho","Gouda","Rolla","Scalf","Alida","Force","Miraj","Mayer","Sanda","Camas","Moose","Warda","Omuta","Olean","Nyeri","Hulin","Ruili","Weert","Akola","Galan","Aline","Chita","Porus","Uledi","Boles","Samos","Colby","Cabot","Mills","Kodak","Copan","Tulia","Evart","Adare","Arbil","Mazon","Vance","Saxon","Quail","Opava","Kerry","Esbon","Maroa","Eilat","Maize","Azusa","Eefde","Anita","Lubno","Sweet","Thors","Adona","Berat","Burua","Ethan","Parnu","Baran","Madoi","Light","Huade","Hibbs","Blsta","Lynch","Carmi","Hulen","Kelso","Torch","Lecco","Grawn","Taopi","Conda","Haden","Paget","Bretz","Muncy","Sudan","Niles","Olive","Davey","Lenox","Nancy","Lavon","Bourg","Marcy","Bondi","Dixon","Smyer","Osseo","Surry","Tieri","Avoca","Arita","Oxley","Swain","Boron","Rodeo","Coban","Micro","Ellis","Dille","Ohito","Tunja","Konya","Rauma","Eksjo","Muldu","Drury","Amasa","Healy","Ystad","Jammu","Surat","Glady","Bunch","Paden","Tomsk","Reyno","Aptos","Laoag","Witta","Neiva","Balia","Malta","Wesco","Davin","Cisne","Waban","Hazel","Ivins","Talmo","Blain","Stone","Plush","Edmon","Mamon","Louin","Wrens","Sears","Dunlo","Wyano","Blach","Faber","Cuiab","Grant","Sylva","Maceo","Redan","Awali","Sakai","Crook","TOLGA","Utica","Gully","Farum","Ronda","KAIRI","Shock","Upton","Patan","Omega","Orrum","Seale","DIXIE","Gates","Tully","WUHAN","Bejou","Aalst","Basin","Kress","House","Percy","Denbo","Borup","Wauna","Morse","Narka","Venta","Jinja","Batam","Wausa","Santa","Simms","Espoo","Yutan","Happy","Aniak","Doran","Kemah","Visby","Banco","Ohrid","Guild","Mound","Derma","Letts"];
-var city=cities[Math.floor(Math.random()*cities.length)];
-var zipCode=10000+Math.floor(Math.random()*89999);
-var phone=1000000000+Math.floor(Math.random()*8999999999);
+var city=cities[rand(0,cities.length-1)];
+var zipCode=rand(10000,99999);
+var phone=rand(1000000000,9999999999);
 var emailName=(name.toLowerCase())+"."+(surname.toLowerCase());
 var emailDomain=(city.toLowerCase().substring(0,5));
 var emailCountry=(country.toLowerCase().substring(0,2));
@@ -37,11 +37,13 @@ var password="";
 var targetLoadingEnd=new Date();
 targetLoadingEnd.setHours(targetLoadingEnd.getHours()+12);
 var lastMovementTs=Date.now()
+var offline=false;
 
 function pageLoaded()
 {
 	for(i=level+1;i<=maxLevel;i++)
 		document.getElementById("level"+i).style="display: none";
+	document.getElementById("gameOver").style="display: none";
 	document.getElementById("personalInfo").addEventListener("contextmenu", function(evt){ evt.preventDefault(); }, false);
 	document.addEventListener("copy", function(evt){ evt.clipboardData.setData("text/plain", "SPAAAAAACE!");evt.preventDefault();}, false);
 	setInterval(animate,1000);
@@ -56,25 +58,29 @@ function pageLoaded()
 	document.getElementById("infoZipCode").innerHTML=zipCode;
 	document.getElementById("infoPhone").innerHTML=phone;
 	document.getElementById("infoEmail").innerHTML=email;
-	/*/generate random stars
-	for(s=0;s<1000;s++)
+	for(el of ["level0","level12"])
 	{
-		var star = document.createElement('div');
-		var size=rand(1,3);
-		var x=rand(0,window.innerWidth);
-		var y=rand(-150,2000);
-	    star.style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: "+x+"px "+y+"px #FFF; animation: animStar "+50*size+"s linear infinite;";
-	    document.getElementById("level0").appendChild(star);
+		if(el=="level0")
+			opacity=0.5;
+		else
+			opacity=1.0;
+		//generate random stars
+		for(size=1;size<4;size++)
+		{
+			var star = document.createElement('div');
+			var style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: ";
+			for(s=0;s<1000;s++)
+			{		
+				var x=rand(0,window.innerWidth);
+				var y=rand(-450,2000);
+			    style+=""+x+"px "+y+"px rgba(255, 255, 255, "+opacity+"), ";
+			}
+			style=style.substring(0,style.length-2)
+			style+="; animation: animStar "+50*size+"s linear infinite;";
+			star.style=style;
+			document.getElementById(el).appendChild(star);
+		}
 	}
-	for(s=0;s<100;s++)
-	{
-		var star = document.createElement('div');
-		var size=rand(1,3);
-		var x=rand(-2000,0);
-		var y=rand(0,2000);
-	    star.style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: "+x+"px "+y+"px #FFF; animation: animStar "+50*size+"s linear infinite;";
-	    document.getElementById("level0").appendChild(star);
-	}*/
 	//TODO DEBUG
 	for(l=0;l<0;l++)
 		levelUp();
@@ -82,6 +88,12 @@ function pageLoaded()
 function levelUp()
 {
 	document.getElementById("level"+level++).style="display: none";
+	if(seatsLeft<=0)
+	{
+		document.getElementById("gameOver").style="display: block";
+		document.getElementById('progressButtons').style.display='none';
+		return;
+	}
 	document.getElementById("level"+level).style="display: block";
 	//mostra i bottoni
 	document.getElementById('progressButtons').style.display='block';
@@ -99,6 +111,22 @@ function levelUp()
 		document.getElementById('birthDay').addEventListener('keydown', function(e){ e.preventDefault(); return false;});
 		//mese
 		document.getElementById('birthMonth').addEventListener('keydown', function(e){ if(e.keyCode<58 && e.keyCode>47){e.preventDefault(); return false;}});
+		//stars nel title
+		for(size=1;size<4;size++)
+		{
+			var star = document.createElement('div');
+			var style="position: absolute; width: "+size+"px; height: "+size+"px; background: transparent; box-shadow: ";
+			for(s=0;s<100;s++)
+			{		
+				var x=rand(-window.innerWidth,window.innerWidth*2);
+				var y=rand(-100,0);
+			    style+=""+x+"px "+y+"px #FFF, ";
+			}
+			style=style.substring(0,style.length-2)
+			style+="; animation: scrollStar "+50*size+"s linear infinite;";
+			star.style=style;
+			document.getElementById("header").appendChild(star);
+		}
 	}
 	else if(level==2)
 	{
@@ -217,7 +245,7 @@ function levelUp()
 			if((i+1)%12==0)
 				document.getElementById('periodicTable').innerHTML+="<br>";
 		}
-		document.getElementById('level9').addEventListener('keydown', function(e){ if(e.keyCode==9){e.preventDefault(); return false;}});
+		document.getElementById('level9').addEventListener('keydown', function(e){ if(e.keyCode==9 || e.keyCode==32 || e.keyCode==13){e.preventDefault(); return false;}});
 		document.getElementById('level9').addEventListener("mousemove",mossoMouse);
 		document.getElementById("level9").addEventListener("contextmenu", sparitoMouse);
 		window.addEventListener("blur",sparitoMouse);
@@ -312,7 +340,7 @@ function loading()
 				}
 			}
 			else
-				loadingProgress-=4.5;
+				loadingProgress-=2.5;
 		}
 		else if(Date.now()-lastMovementTs<2000)
 		{
@@ -354,6 +382,14 @@ function loading()
 		ctx.beginPath();
 		ctx.arc(2+loaderPosition,350,5,0,7);
 		ctx.stroke();
+		//eyebrows
+		ctx.beginPath();
+		ctx.arc(loaderPosition-4,331,5,Math.PI/2+0.2,-Math.PI/2);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.arc(loaderPosition-4,349,5,Math.PI/2+0.5,-Math.PI/2);
+		ctx.stroke();
+
 		//qualche frame fagli chiudere gli occhi
 		if(Date.now()%2000<100)
 			ctx.lineWidth = 7;
@@ -373,7 +409,7 @@ function loading()
 		if((loadingProgress+=1.9995) > 100)
 		{
 			loadingProgress=100;
-			if(navigator.onLine)
+			if(checkInternet())
 				document.getElementById('modalAD').style.display='block';
 		}			
 		ctx.fillStyle="#FFF";
@@ -531,7 +567,10 @@ function distanceFrom(ax,ay,bx,by)
 function animate()
 {
 	secondsPassed++;
-	document.getElementById("seatsLeft").innerHTML=Math.floor(seatsLeft-=(10*Math.random()));
+	seatsLeft=Math.floor(seatsLeft-=rand(1,10))
+	if(seatsLeft<0)
+		seatsLeft=0;
+	document.getElementById("seatsLeft").innerHTML=seatsLeft;
 }
 //a seconda del livello, pulisci il form //TODO
 function cancel()
@@ -676,7 +715,7 @@ function submit()
 	}
 	else if(level==10)
 	{
-		if(navigator.onLine)
+		if(checkInternet())
 		{
 			console.log("Nice try!");
 			nErrors++;
@@ -835,8 +874,8 @@ function insertPhone(digit)
 	for(i=0;i<10;i++)
 	{
 		document.getElementById("phoneButton"+i).innerHTML=i;
-		var a=Math.floor(Math.random()*10);
-		var b=Math.floor(Math.random()*10);
+		var a=rand(0,9);
+		var b=rand(0,9);
 		tmp=phoneDigits[a].x;
 		phoneDigits[a].x=phoneDigits[b].x;
 		phoneDigits[b].x=tmp;
@@ -880,6 +919,21 @@ function getZodiac(month, day){
 	else
 		return "capricorn";
 	
+}
+function checkInternet()
+{
+
+	if(navigator.onLine===false)
+	{
+		offline=true;
+		return !offline;
+	}
+	//remote call
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() { if (this.readyState == 4 && this.status != 200) offline=true;};
+	xhttp.open("GET", location.href, true);
+	xhttp.send();
+	return !offline;
 }
 function rand(da, a)
 {

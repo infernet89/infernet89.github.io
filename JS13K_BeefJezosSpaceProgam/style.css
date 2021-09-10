@@ -8,6 +8,12 @@ header {
   text-align: center;
   height: 75px;
 }
+h1 {
+  font-size: 4em;
+  background: -webkit-linear-gradient(white, #38495a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 nav {
   height:99%;
   width:10%;
@@ -53,6 +59,11 @@ button {
   border-radius: 10px;
   padding: 0.3em;
   margin: 0.3em;
+}
+
+#level0 h2, #level0 h3 {
+  position: absolute;
+  text-shadow: 0px 0px 20px #FFF;
 }
 
 .smallButton {
@@ -126,9 +137,9 @@ button {
 }
 @keyframes scrollStar {
   0% {
-    transform: translateX(-2000px);
+    transform: translateX(-1500px);
   }
   100% {
-    transform: translateX(2000px);
+    transform: translateX(1500px);
   }
 }
