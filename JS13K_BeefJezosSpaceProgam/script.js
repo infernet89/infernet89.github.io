@@ -82,7 +82,7 @@ function pageLoaded()
 		}
 	}
 	//TODO DEBUG
-	for(l=0;l<0;l++)
+	for(l=0;l<11;l++)
 		levelUp();
 }
 function levelUp()
@@ -271,8 +271,17 @@ function levelUp()
 	}
 	else if(level==12)
 	{
-		//TODO ending
 		document.getElementById('progressButtons').style.display='none';
+		setTimeout(checkFlashError,10);
+	}
+}
+function checkFlashError()
+{
+	//console.log(document.getElementById('beforeFlash').getBoundingClientRect().top,document.getElementById('afterFlash').getBoundingClientRect().top);
+	//missing "Flash Unsupported" error.
+	if(document.getElementById('afterFlash').getBoundingClientRect().top-document.getElementById('beforeFlash').getBoundingClientRect().top<10)
+	{
+		document.title="SIGH!";
 	}
 }
 function progressAge()
@@ -323,32 +332,31 @@ function loading()
 	else if(level==6)
 	{
 		barX=canvas.offsetLeft;
-		barY=300+canvas.offsetTop
+		barY=310+canvas.offsetTop
 		document.getElementById('loadingScreen3').style.cursor = "default";
-		//check if it is moving, or is too near the bar
-		if(mousey>barY-40 && mousey<390+canvas.offsetTop && mousex>barX-30 && mousex<barX+430)
+		//check if inside the bar
+		if(mousey>barY && mousey<barY+40 && mousex>barX && mousex<barX+400)
 		{
-			//check if catched the bar
-			if(mousey>barY && mousey<barY+40 && mousex>barX && mousex<barX+loaderPosition)
+			document.getElementById('loadingScreen3').style.cursor = "pointer";
+			if(dragging && mousex<barX+loaderPosition && ++loadingProgress>100)
 			{
-				document.getElementById('loadingScreen3').style.cursor = "pointer";
-				if(dragging && ++loadingProgress>100)
-				{
-					loadingProgress=1000;
-					clearInterval(animations['loading']);
-					document.getElementById('progressButtons').style.display='block';
-				}
+				loadingProgress=100;
+				clearInterval(animations['loading']);
+				document.getElementById('progressButtons').style.display='block';
 			}
-			else
-				loadingProgress-=2.5;
-		}
+			else if(!dragging)
+			{
+				loadingProgress-=1.5;
+			}				
+			else loadingProgress-=0.0005;	
+		}			
 		else if(Date.now()-lastMovementTs<2000)
 		{
 			loadingProgress-=0.0005;	
 		}
 		else
 		{
-			loadingProgress+=0.0495;
+			loadingProgress+=0.0095;
 		}
 		//check if it is moving
 		if(distanceFrom(mousex,mousey,oldMousex,oldMousey)>3)
@@ -358,10 +366,8 @@ function loading()
 		oldMousex=mousex;
     	oldMousey=mousey;
 		//caps
-		if(loadingProgress>999)
+		if(loadingProgress>100)
 			loadingProgress=100;
-		else if(loadingProgress>99.99)
-			loadingProgress=99.99;
 		else if(loadingProgress<0)
 			loadingProgress=0;
 		loaderPosition=376*(loadingProgress/100);
@@ -369,7 +375,7 @@ function loading()
 	    ctx.textAlign = "center";
 	    ctx.font = "40px San Serif";
 	    ctx.fillText("LOADING...",200,200);
-	    ctx.fillText((Math.floor(loadingProgress))+"%",200,250);
+	    ctx.fillText((Math.round(loadingProgress*100)/100)+"%",200,250);
 	    ctx.fillRect(10,320,380,40);
 	    ctx.fillStyle="#000";
 	    ctx.fillRect(12+loaderPosition,322,376*(1-loadingProgress/101),36);
@@ -414,8 +420,8 @@ function loading()
 		}			
 		ctx.fillStyle="#FFF";
 	    ctx.textAlign = "center";
-	    ctx.font = "30px San Serif";
-	    ctx.fillText("LOADING THE NEXT AD...",200,200);
+	    ctx.font = "25px San Serif";
+	    ctx.fillText("DOWNLOADING THE NEXT AD...",200,200);
 	    ctx.fillText((Math.floor(loadingProgress))+"%",200,250);
 	    ctx.fillRect(10,320,380,40);
 	    ctx.fillStyle="#000";

@@ -63,6 +63,8 @@ button {
 
 #level0 h2, #level0 h3 {
   position: absolute;
+  left: 10%;
+  width: 90%;
   text-shadow: 0px 0px 20px #FFF;
 }
 
@@ -108,14 +110,19 @@ button {
 #modalAD > div {
   background-color: #ff670f;
   color: black;
-  padding: 20px;
-  padding-top: 0px;
+  padding-bottom: 20px;
   border: 10px solid #888;
   width: 70%;
-  height: 70%;
+  height: 50%;
   font-size: 3em;
   margin-left:15%;
   margin-top: 7%;
+}
+.descriptionAD {
+  float: left;
+  font-size: 0.2em;
+  background-color: #888;
+  color: #FFF;
 }
 .closeAD {
   color: #333;
