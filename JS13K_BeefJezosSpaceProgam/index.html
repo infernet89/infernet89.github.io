@@ -4,10 +4,16 @@
 	<meta charset="UTF-8"></meta>
 	<title>Beef Jezos Space Program</title>
 	<link rel="stylesheet" href="style.css"></link>
-	<script src="script.js"></script> 
+	<script src="min.script.js"></script> 
+	<script type="module">
+		import * as faces from "./facesjs/index.js";
+		const face = faces.generate();
+		faces.display("person-avatar", face);
+	</script> 
 </head>
 <body id='allPage' onload='pageLoaded()'>
 	<nav id='personalInfo'>
+		<div id='person-avatar'> </div>
 		<span id='infoName'></span> <span id='infoSurname'></span>
 		<br/><br/>
 		Born on:<br/>
@@ -39,7 +45,13 @@
 			<h3 style="top: 45%;">But no worries!</h3>
 			<h3 style="top: 55%;">We are a very <b>INNOVATIVE</b> company, so it will be super easy!</h3>
 			<h3 style="top: 60%;">Barely an inconvenience!</h3>
-			
+			<span class="rotating" style="position: absolute; left: 20%; top: 20%; font-size: 2em;">🌕</span>
+			<span class="rotating" style="position: absolute; right: 30%; top: 10%; font-size: 5em;">🪐</span>
+			<span class="rotating" style="position: absolute; left: 20%; bottom: 30%; font-size: 15em;">🚀</span>
+			<span class="rotating" style="position: absolute; right: 10%; top: 20%; font-size: 15em;">👽</span>
+			<span class="rotating" style="position: absolute; left: 15%; bottom: 3%; font-size: 5em;">🛰</span>
+			<img style="position: absolute; bottom: 0%; right:0%; width: 35%;" src="pic/title.png" />
+
 			<div style="position: absolute; bottom: 5%; left:49%;">
 				Ready to join us? Click the button below
 				<br/>
@@ -174,7 +186,7 @@
 			}
 			else
 			{
-				this.innerHTML='Stop'
+				this.innerHTML='Stop';
 				animations['age']=setInterval(progressAge,100);
 			}">Stop</button>
 			<br/>
@@ -227,15 +239,25 @@
 		<div id='level12'>
 			<h2><b>Congratulations!</b> You can now redeem your ticket by clicking below:</h2>
 			<br/>
-			<span id='beforeFlash'/>
-			<embed src="spaceTicket.swf" quality=high bgcolor=#000000 WIDTH="400" HEIGHT="500" NAME="spackeTicket" ALIGN="center" TYPE="application/x-shockwave-flash">
+			<p id='beforeFlash'></p>
+			<embed id='flashTicket' src="spaceTicket.swf" quality=high bgcolor=#000000 WIDTH="400" HEIGHT="500" NAME="spackeTicket" ALIGN="center" TYPE="application/x-shockwave-flash">
 				<noembed>Your year does not support flash!</noembed>
 			</embed>
-			<span id='afterFlash'/>
+			<div id='html5Ticket'>
+				<button onclick='revealTicket()'>
+					<span>Reveal Ticket</span>
+				</button>
+			</div>
+			<div id='flashErrorFallback'>
+				<p style='font-size: 3em; margin: 0'>⚠</p>
+				<p>Adobe Flash Player is no longer supported</p>
+			</div>
+			<p id='afterFlash'></p>
 			<br/>
 			<h2 style="text-align: center; color: #111;">YOU WON!</h2>
 			<br/>
 			<span style='text-shadow: 0px 0px 20px #FFF;'>We'll see you, in SPACE!!</span>
+			<img style="position: absolute; bottom: 0%; right:0%; width: 35%;" src="pic/title.png" />
 		</div>
 		<div id='gameOver'>
 			<br/>

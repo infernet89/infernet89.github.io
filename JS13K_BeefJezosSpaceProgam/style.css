@@ -150,3 +150,126 @@ button {
     transform: translateX(1500px);
   }
 }
+#flashErrorFallback, #html5Ticket
+{
+  display: none;
+  background-color: #F7F7F7;
+  color: #666;
+  width: 400px;
+  height: 350px;
+  margin: 0 auto;
+  position:relative;
+  left:5%;
+  padding-top: 150px;
+}
+#html5Ticket {
+  z-index: 1;
+}
+#person-avatar {
+  z-index: 1;
+  position: relative;
+}
+/*Jelly Button by arronhunt: https://codepen.io/arronhunt/pen/WWOOeO*/
+#html5Ticket button {
+  margin-right: 1%;
+  margin-top: -10%;
+  cursor: pointer;
+  position: relative;
+  padding: 2.5rem 7.5rem;
+  border-radius: 3.75rem;
+  line-height: 2.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #1B1FFF 0%, #1345DB 100%);
+  box-shadow:  0 1rem 1.25rem 0 rgba(22,75,195,0.50), 0 -0.25rem 1.5rem rgb(19, 15, 155) inset, 0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset, 0 0.25rem 0.5rem 0 rgb(70, 72, 207) inset;
+}
+
+#html5Ticket button span {
+  color: transparent;
+  background-image: linear-gradient(0deg, #837BD7 0%, #FEFAFD 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 2px hsl(239.2, 91%, 30.6%))
+}
+
+#html5Ticket button::before {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+  
+  opacity: 0.7;
+  background-image: linear-gradient(-270deg, rgba(255,255,255,0.00) 0%, #FFFFFF 20%, #FFFFFF 80%, rgba(255,255,255,0.00) 100%);
+}
+
+#html5Ticket button::after {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+  
+  filter: blur(1px);
+  opacity: 0.05;
+  background-image: linear-gradient(-270deg, rgba(255,255,255,0.00) 0%, #FFFFFF 20%, #FFFFFF 80%, rgba(255,255,255,0.00) 100%);
+}
+/*Golden ticket*/
+#goldenTicket {
+  width: 100%;
+  min-height: 180px;
+  background-image: url("pic/goldenTicket.jpg");  
+  background-size: cover;
+}
+#goldenTicket p{
+  margin: 2em;
+}
+/*rotation*/
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+  display: inline-block;
+}
