@@ -23,7 +23,7 @@ var activeCountry=start;
 var startTime;
 
 //TODO DEBUG
-level=6;
+level=1;
 //TODO DEBUG
 
 //setup
@@ -74,7 +74,6 @@ function win()
 }
 function fail()
 {
-    console.log("called fail??");
     if(activeCountry)
     {
         activeCountry.trail=[...trail];
