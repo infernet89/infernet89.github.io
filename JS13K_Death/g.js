@@ -586,7 +586,7 @@ function setup()
         drawable.push(tmp);
     }
 
-    else if(level==7)
+    else if(level==6)
     {
         if(startCountries.length==0)
         {
